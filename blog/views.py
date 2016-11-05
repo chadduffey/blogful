@@ -44,3 +44,10 @@ def add_entry_post():
     session.add(entry)
     session.commit()
     return redirect(url_for("entries"))
+
+@app.route("/entry/<int:id>")
+def view_entry(id):
+
+    id = session.query(Entry).get(id + 1)
+
+    return render_template("view_entry.html", id=id)
