@@ -3,6 +3,19 @@
 
 {% block content %}
 
+    <div class="dropdown">
+      <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+        Items
+        <span class="caret"></span>
+      </button>
+      <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+        <li><a href="{{ url_for('entries', limit='3') }}">3</a></li>
+        <li><a href="{{ url_for('entries', limit='5') }}">5</a></li>
+        <li><a href="{{ url_for('entries', limit='10') }}">10</a></li>
+        <li><a href="{{ url_for('entries', limit='15') }}">15</a></li>
+      </ul>
+    </div>
+
     {% for entry in entries %}
         {{ macros.render_entry(entry) }}
     {% endfor %}

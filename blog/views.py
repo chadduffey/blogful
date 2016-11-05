@@ -3,13 +3,22 @@ from flask import render_template, request, redirect, url_for
 from . import app
 from .database import session, Entry
 
+
 PAGINATE_BY = 10
+
 
 @app.route("/")
 @app.route("/page/<int:page>")
 def entries(page=1):
-    #zero indexed page...
-    page_index = page -1
+
+    global PAGINATE_BY
+
+    #zero indexed page
+    page_index = page - 1
+
+    if 'limit' in request.args:
+        if request.args.get('limit').isdigit():
+            PAGINATE_BY = int(request.args.get('limit'))
 
     count = session.query(Entry).count()
 
