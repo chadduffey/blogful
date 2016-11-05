@@ -15,3 +15,22 @@
     </div>
 </div>
 {% endmacro %}
+
+{% macro render_entry_single(entry) %}
+<div class="row">
+    <div class="col-md-2 text-right metadata">
+        <ul class="list-unstyled">
+            <li>
+                {{ entry.datetime | dateformat("%d/%m/%y") }}
+            </li>
+        </ul>
+    </div>
+    <div class="col-md-10">
+        <h1>
+            {{ entry.title }}
+        </h1>
+        {{ entry.content | markdown }}
+        <a href="{{ url_for('edit_entry', id = entry.id - 1 ) }}">edit</a>
+    </div>
+</div>
+{% endmacro %}
