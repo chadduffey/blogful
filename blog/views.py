@@ -31,9 +31,11 @@ def entries(page=1):
                            page=page,
                            total_pages=total_pages)
 
+
 @app.route("/entry/add", methods=["GET"])
 def add_entry_get():
     return render_template("add_entry.html")
+
 
 @app.route("/entry/add", methods=["POST"])
 def add_entry_post():
@@ -45,6 +47,7 @@ def add_entry_post():
     session.commit()
     return redirect(url_for("entries"))
 
+
 @app.route("/entry/<int:id>")
 def view_entry(id):
 
@@ -52,12 +55,14 @@ def view_entry(id):
 
     return render_template("view_entry.html", entry=entry)
 
+
 @app.route("/entry/edit/<int:id>", methods=["GET"])
 def edit_entry(id):
 
     entry = session.query(Entry).get(id + 1)
 
     return render_template("edit_entry.html", entry=entry)
+
 
 @app.route("/entry/edit/<int:id>", methods=["POST"])
 def edit_entry_post(id):
@@ -68,4 +73,17 @@ def edit_entry_post(id):
     session.commit()
 
     return render_template("view_entry.html", entry=entry)
+
+
+@app.route("/entry/delete/<int:id>", methods=["GET"])
+def delete_entry(id):
+
+    entry = session.query(Entry).get(id + 1)
+
+    session.delete(entry)
+    session.commit()
+
+    return redirect("/")
+
+
 
