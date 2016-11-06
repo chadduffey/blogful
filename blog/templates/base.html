@@ -21,23 +21,46 @@
     </head>
 
     <body>
-        <div class="navbar navbar-inverse navbar-static-top" role="navigation">
-            <div class="container">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="{{ url_for('entries') }}">Blogful</a>
-                </div>
-                <div class="collapse navbar-collapse">
-                    <ul class="nav navbar-nav navbar-right">
-                    </ul>
-                </div>
+        <nav class="navbar navbar-default">
+          <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="/">Blogful</a>
             </div>
-        </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+              <ul class="nav navbar-nav navbar-right">
+                  <li class="dropdown">
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-sort-by-attributes" aria-hidden="true"></span><span class="caret"></span></a>
+                      <ul class="dropdown-menu">
+                        <li><a href="{{ url_for('entries', limit='3') }}">3</a></li>
+                        <li><a href="{{ url_for('entries', limit='5') }}">5</a></li>
+                        <li><a href="{{ url_for('entries', limit='10') }}">10</a></li>
+                        <li><a href="{{ url_for('entries', limit='15') }}">15</a></li>
+                      </ul>
+                  </li>
+                  <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-off" aria-hidden="true"></span><span class="caret"></span></a>
+                  <ul class="dropdown-menu">
+                      {% if logged_in %}
+                        <li><a href="{{ url_for('logout') }}">Log Out</a></li>
+                      {% else %}
+                        <li><a href="{{ url_for('login_get') }}">Log In</a></li>
+                      {% endif %}
+                  </ul>
+                </li>
+              </ul>
+            </div><!-- /.navbar-collapse -->
+          </div><!-- /.container-fluid -->
+        </nav>
 
         {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
@@ -48,6 +71,13 @@
         {% endfor %}
         {% endif %}
         {% endwith %}
+
+
+        <div class="jumbotron">
+            <div class="container">
+                <h1><span class="glyphicon glyphicon-headphones" aria-hidden="true"></span> ..Blogful..</h1>
+            </div>
+        </div>
 
         <div class="container">
             {% block content %}{% endblock %}

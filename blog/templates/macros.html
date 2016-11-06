@@ -3,7 +3,9 @@
     <div class="col-md-2 text-right metadata">
         <ul class="list-unstyled">
             <li>
-                {{ entry.datetime | dateformat("%d/%m/%y") }}
+                {{ entry.author.name }} @
+                {{ entry.datetime | dateformat("%H:%M %d/%m/%y") }}
+
             </li>
         </ul>
     </div>

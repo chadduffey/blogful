@@ -1,6 +1,6 @@
 from flask import render_template, request, redirect, url_for, flash
 
-from flask_login import login_user, login_required
+from flask_login import login_user, logout_user, login_required, current_user
 
 from werkzeug.security import check_password_hash
 
@@ -37,12 +37,19 @@ def entries(page=1):
     entries = entries.order_by(Entry.datetime.desc())
     entries = entries[start:end]
 
+    logged_in = False
+    if current_user.is_authenticated:
+        logged_in = True
+
+
     return render_template("entries.html",
-                           entries=entries,
-                           has_next=has_next,
-                           has_prev=has_prev,
-                           page=page,
-                           total_pages=total_pages)
+                               entries=entries,
+                               has_next=has_next,
+                               has_prev=has_prev,
+                               page=page,
+                               total_pages=total_pages,
+                               logged_in=logged_in)
+
 
 
 @app.route("/entry/add", methods=["GET"])
@@ -57,6 +64,7 @@ def add_entry_post():
     entry = Entry(
         title=request.form["title"],
         content=request.form["content"],
+        author=current_user
     )
     session.add(entry)
     session.commit()
@@ -119,4 +127,8 @@ def login_post():
     return redirect(request.args.get('next') or url_for("entries"))
 
 
+@app.route("/logout", methods=['GET'])
+def logout():
+    logout_user()
+    return redirect("/")
 
