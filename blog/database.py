@@ -1,6 +1,6 @@
 import datetime
 
-from flask.ext.login import UserMixin
+from flask_login import UserMixin
 
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
