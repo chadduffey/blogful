@@ -1,3 +1,6 @@
-# Flask Blog
+### Status
+[![Build Status](https://travis-ci.org/chadduffey/blogful.svg?branch=master)](https://travis-ci.org/chadduffey/blogful)
+
+# Simple Flask Blog
 
 Flask practice.
